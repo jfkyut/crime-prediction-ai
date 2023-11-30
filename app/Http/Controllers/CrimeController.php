@@ -2,12 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Knowledge;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
+use App\Services\OpenAIService;
 
 class CrimeController extends Controller
 {
+    public $openAIService;
+    public function __construct(OpenAIService $openAIService)
+    {
+        $this->openAIService = $openAIService;
+    }
+
     public function create()
     {
         return Inertia::render('Main');
@@ -15,10 +24,18 @@ class CrimeController extends Controller
 
     public function store(Request $request)
     {
+        $collection = [];
+
+        foreach (Knowledge::all() as $knowledge) {
+            array_push($collection, Storage::get($knowledge['path']));
+        }
+
+        $base = implode("\n\n\n\n", $collection);
+
         $system = [
             [
                 "role" => "system",
-                "content" => "You are a crime prediction app. Generate a possible crime for that can be applied depending on a situation that describe by the user."
+                "content" => "You are a crime prediction app. Generate a possible crime for that can be applied depending on a situation that describe by the user.\n\nKnowledge base: " . $base
             ]
         ];
 
@@ -31,18 +48,6 @@ class CrimeController extends Controller
 
         $messages = array_merge($system, $user);
 
-        $response = Http::withHeaders([
-            'Content-Type' => 'application/json',
-            'Authorization' => 'Bearer ' . env('OPENAI_KEY')
-        ])->post('https://api.openai.com/v1/chat/completions', [
-            "model" => "gpt-3.5-turbo-1106",
-            "messages" => $messages,
-        ]);
-
-        if ($response->ok()) {
-            return response($response->json()['choices'][0]['message']['content']);
-        } else {
-            return abort(500, "Something went wrong!");
-        }
+        return response($this->openAIService->prompt($messages));
     }
 }

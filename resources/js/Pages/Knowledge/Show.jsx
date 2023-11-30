@@ -1,13 +1,13 @@
 import AuthLayout from "@/Layouts/Custom/AuthLayout";
 import { Head } from "@inertiajs/react";
 
-const Create = ({ auth }) => {
+const Show = ({ auth }) => {
     return (
         <AuthLayout user={auth.user}>
             <Head title={"Knowledge"} />
-            sdfsdlkfjsldfk
+            Show
         </AuthLayout>
     )
 }
 
-export default Create
+export default Show

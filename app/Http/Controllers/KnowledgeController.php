@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Inertia\Inertia;
 use App\Models\Knowledge;
 use Illuminate\Http\Request;
-use Inertia\Inertia;
+use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\Knowledge\NewKnowledgeFileRequest;
 
 class KnowledgeController extends Controller
 {
@@ -13,31 +15,27 @@ class KnowledgeController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        return Inertia::render('Knowledge/Create');
+        return Inertia::render('Knowledge/Index', [
+            'knowledgeList' => Knowledge::all()
+        ]);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(NewKnowledgeFileRequest $request)
     {
-        //
-    }
+        $newFile = $request->file('knowledge');
+        $path = $newFile->store('/knowledge');
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Knowledge $knowledge)
-    {
-        //
+        if ($path) {
+            Knowledge::create([
+                'name' => $newFile->getClientOriginalName(),
+                'path' => $path
+            ]);
+        }
+
+        return back();
     }
 
     /**
@@ -61,6 +59,16 @@ class KnowledgeController extends Controller
      */
     public function destroy(Knowledge $knowledge)
     {
-        //
+        if (Storage::exists($knowledge['path'])) {
+            Storage::delete($knowledge['path']);
+        }
+
+        try {
+            $knowledge->delete();
+
+            return back();
+        } catch (\LogicException) {
+            return abort(500);
+        }
     }
 }

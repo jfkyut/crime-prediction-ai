@@ -33,14 +33,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // knowledge
     Route::get('/knowledge', [KnowledgeController::class, 'index'])->name('knowledge.index');
-    Route::get('/knowledge/create', [KnowledgeController::class, 'create'])->name('knowledge.create');
-    Route::get('/knowledge/{knowledge}', [KnowledgeController::class, 'show'])->name('knowledge.show');
     Route::post('/knowledge', [KnowledgeController::class, 'store'])->name('knowledge.store');
-    Route::delete('/knowledge/{knowledge}', [KnowledgeController::class, 'destroy'])->name('knowledge.destroy');
     Route::put('/knowledge/{knowledge}', [KnowledgeController::class, 'update'])->name('knowledge.update');
+    Route::delete('/knowledge/{knowledge}', [KnowledgeController::class, 'destroy'])->name('knowledge.destroy');
 
     // profile
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    // Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/profile/change-password', [ProfileController::class, 'passwordPage'])->name('profile.password');

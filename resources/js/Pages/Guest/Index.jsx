@@ -2,7 +2,7 @@ import { Head } from "@inertiajs/react";
 
 const Index = () => {
     return (
-        <div className="dark:bg-zinc-800 h-screen">
+        <div className="bg-gray-100 h-screen">
             <Head title="Guest" />
             <header>
 

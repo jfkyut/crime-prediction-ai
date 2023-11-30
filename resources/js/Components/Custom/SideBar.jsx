@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "@inertiajs/react";
 
-const SideBar = () => {
+const SideBar = ({ user }) => {
 
     const [openSideBar, setOpenSideBar] = useState(false);
     const sidebarRef = useRef(null);
@@ -42,6 +42,7 @@ const SideBar = () => {
                 id="sidebar-multi-level-sidebar"
                 className={`${!openSideBar && "-translate-x-full"} fixed top-0 left-0 z-40 w-64 h-screen transition-transform sm:translate-x-0`}
                 aria-label="Sidebar">
+
                 <div className="h-full px-3 py-4 overflow-y-auto bg-zinc-50 dark:bg-zinc-800">
                     <ul className="space-y-2 font-medium">
                         <li>
@@ -52,23 +53,23 @@ const SideBar = () => {
                         </li>
                     </ul>
 
-                    <ul className="pt-4 mt-4 space-y-2 font-medium border-t border-zinc-200 dark:border-zinc-700">
-                        <strong className="text-xl dark:text-gray-200 p-2"><i className="fa fa-user-tie mr-2"></i>Administration</strong>
-                        <li>
-                            <Link href={route('profile.email')} className="flex items-center p-2 text-zinc-900 transition duration-75 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-700 dark:text-white group">
-                                <i className="fa fa-file text-zinc-500 transition duration-75 dark:text-zinc-400 group-hover:text-zinc-900 dark:group-hover:text-white"></i>
-                                <span className="ms-3">Knowledge files</span>
-                            </Link>
-                            <Link href={route('profile.email')} className="flex items-center p-2 text-zinc-900 transition duration-75 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-700 dark:text-white group">
-                                <i className="fa fa-users text-zinc-500 transition duration-75 dark:text-zinc-400 group-hover:text-zinc-900 dark:group-hover:text-white"></i>
-                                <span className="ms-3">Manage users</span>
-                            </Link>
-                        </li>
-                    </ul>
+                    {user.is_admin !== 0 && (
+                        <ul className="pt-4 mt-4 space-y-2 font-medium border-t border-zinc-200 dark:border-zinc-700">
+                            <li>
+                                <Link href={route('knowledge.index')} className="flex items-center p-2 text-zinc-900 transition duration-75 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-700 dark:text-white group">
+                                    <i className="fa fa-file text-zinc-500 transition duration-75 dark:text-zinc-400 group-hover:text-zinc-900 dark:group-hover:text-white"></i>
+                                    <span className="ms-3">Knowledge files</span>
+                                </Link>
+                                <Link href={route('profile.email')} className="flex items-center p-2 text-zinc-900 transition duration-75 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-700 dark:text-white group">
+                                    <i className="fa fa-users text-zinc-500 transition duration-75 dark:text-zinc-400 group-hover:text-zinc-900 dark:group-hover:text-white"></i>
+                                    <span className="ms-3">Manage users</span>
+                                </Link>
+                            </li>
+                        </ul>
+                    )}
 
                     {/* border top here */}
                     <ul className="pt-4 mt-4 space-y-2 font-medium border-t border-zinc-200 dark:border-zinc-700">
-                        <strong className="text-xl dark:text-gray-200 p-2"><i className="fa fa-sliders mr-2"></i>Account Settings</strong>
                         <li>
                             <Link href={route('profile.email')} className="flex items-center p-2 text-zinc-900 transition duration-75 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-700 dark:text-white group">
                                 <i className="fa fa-at text-zinc-500 transition duration-75 dark:text-zinc-400 group-hover:text-zinc-900 dark:group-hover:text-white"></i>
