@@ -51,12 +51,28 @@ const SideBar = () => {
                             </Link>
                         </li>
                     </ul>
+
+                    <ul className="pt-4 mt-4 space-y-2 font-medium border-t border-zinc-200 dark:border-zinc-700">
+                        <strong className="text-xl dark:text-gray-200 p-2"><i className="fa fa-user-tie mr-2"></i>Administration</strong>
+                        <li>
+                            <Link href={route('profile.email')} className="flex items-center p-2 text-zinc-900 transition duration-75 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-700 dark:text-white group">
+                                <i className="fa fa-file text-zinc-500 transition duration-75 dark:text-zinc-400 group-hover:text-zinc-900 dark:group-hover:text-white"></i>
+                                <span className="ms-3">Knowledge files</span>
+                            </Link>
+                            <Link href={route('profile.email')} className="flex items-center p-2 text-zinc-900 transition duration-75 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-700 dark:text-white group">
+                                <i className="fa fa-users text-zinc-500 transition duration-75 dark:text-zinc-400 group-hover:text-zinc-900 dark:group-hover:text-white"></i>
+                                <span className="ms-3">Manage users</span>
+                            </Link>
+                        </li>
+                    </ul>
+
                     {/* border top here */}
                     <ul className="pt-4 mt-4 space-y-2 font-medium border-t border-zinc-200 dark:border-zinc-700">
+                        <strong className="text-xl dark:text-gray-200 p-2"><i className="fa fa-sliders mr-2"></i>Account Settings</strong>
                         <li>
                             <Link href={route('profile.email')} className="flex items-center p-2 text-zinc-900 transition duration-75 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-700 dark:text-white group">
                                 <i className="fa fa-at text-zinc-500 transition duration-75 dark:text-zinc-400 group-hover:text-zinc-900 dark:group-hover:text-white"></i>
-                                <span className="ms-3">Update email</span>
+                                <span className="ms-3">Edit email</span>
                             </Link>
                         </li>
                         <li>

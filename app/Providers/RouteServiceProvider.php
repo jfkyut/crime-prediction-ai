@@ -17,7 +17,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    public const HOME = '/generator';
+    public const HOME = '/ai-generator';
 
     /**
      * Define your route model bindings, pattern filters, and other route configuration.
