@@ -4,11 +4,11 @@ import { Link } from '@inertiajs/react';
 export default function Guest({ children }) {
     return (
         <div className="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-zinc-100 dark:bg-zinc-900">
-            <div>
+            {/* <div>
                 <Link href="/">
                     <ApplicationLogo className="w-20 h-20 fill-current text-zinc-500" />
                 </Link>
-            </div>
+            </div> */}
 
             <div className="w-full max-w-sm p-4 bg-white border border-zinc-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-zinc-800 dark:border-zinc-700 mt-5">
                 <h5 class="text-xl font-medium text-gray-900 dark:text-white mb-6">
@@ -18,7 +18,7 @@ export default function Guest({ children }) {
                             ? "Sign up to our platform"
                             : route().current('password.request')
                                 ? "Forgot password"
-                                : route().current()
+                                : <span className='uppercase'>{route().current().replace('.', ' ')}</span>
                     }
                 </h5>
                 {children}

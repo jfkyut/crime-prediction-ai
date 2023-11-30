@@ -36,7 +36,7 @@ const Index = () => {
                         <span>Continue with Google</span>
                     </a>
                     {/* google end */}
-                    <a href={route('oauth.create', 'facebook')} class="flex items-center bg-white border border-gray-300 rounded-lg shadow-md max-w-xs px-6 py-2 text-sm font-medium text-gray-800 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
+                    <a href={route('oauth.create', 'facebook')} class="flex w-full items-center bg-white border border-gray-300 rounded-lg shadow-md max-w-xs px-6 py-2 text-sm font-medium text-gray-800 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
                         <svg class="h-6 w-6 mr-2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                             viewBox="0 0 48 48" version="1.1">
                             <g id="Icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -51,6 +51,11 @@ const Index = () => {
                         </svg>
 
                         <span>Continue with Facebook</span>
+                    </a>
+
+                    <a href={route('login')} className="flex w-full items-center bg-white border border-gray-300 rounded-lg shadow-md max-w-xs px-6 py-2 text-sm font-medium text-gray-800 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
+                        <i className="fa fa-at mr-2 h-6 w-6 text-xl"></i>
+                        <span>Continue with Email</span>
                     </a>
                 </div>
             </main>

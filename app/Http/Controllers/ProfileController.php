@@ -24,6 +24,21 @@ class ProfileController extends Controller
         ]);
     }
 
+    public function passwordPage()
+    {
+        return Inertia::render('Profile/Password');
+    }
+
+    public function emailPage()
+    {
+        return Inertia::render('Profile/Email');
+    }
+
+    public function deletePage()
+    {
+        return Inertia::render('Profile/Delete');
+    }
+
     /**
      * Update the user's profile information.
      */

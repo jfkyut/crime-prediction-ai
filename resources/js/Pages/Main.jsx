@@ -1,4 +1,4 @@
-import { Head, router } from '@inertiajs/react';
+import { Head } from '@inertiajs/react';
 import AuthLayout from '@/Layouts/Custom/AuthLayout';
 import { useState } from 'react';
 import axios from 'axios';
@@ -32,7 +32,7 @@ export default function Dashboard({ auth }) {
     return (
         <AuthLayout user={auth.user}>
             <Head title="Home" />
-            <div className='min-h-screen py-24'>
+            <div>
                 <form onSubmit={prompt} className='w-full'>
                     <div className="w-full mb-4 border border-zinc-200 rounded-lg bg-zinc-50 dark:bg-zinc-700 dark:border-zinc-600">
                         <div className="px-4 py-2 bg-white rounded-t-lg dark:bg-zinc-800">
