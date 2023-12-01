@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use Inertia\Inertia;
 use App\Models\Knowledge;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\UpdateKnowledgeRequest;
 use App\Http\Requests\Knowledge\NewKnowledgeFileRequest;
 
 class KnowledgeController extends Controller
@@ -43,15 +43,21 @@ class KnowledgeController extends Controller
      */
     public function edit(Knowledge $knowledge)
     {
-        //
+        return Inertia::render('Knowledge/Edit', [
+            'knowledge' => $knowledge,
+            'oldContent' => Storage::get($knowledge['path'])
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Knowledge $knowledge)
+    public function update(UpdateKnowledgeRequest $request, Knowledge $knowledge)
     {
-        //
+
+        Storage::put($knowledge['path'], $request->validated('knowledge'));
+
+        return back();
     }
 
     /**

@@ -8,12 +8,13 @@ export default function Dashboard({ auth }) {
     const [message, setMessage] = useState("");
     const [response, setResponse] = useState(null);
     const [isSent, setIsSent] = useState(false);
+    const [error, setError] = useState(false);
 
     const prompt = async (e) => {
         e.preventDefault();
-        setMessage("");
         setIsLoading(true);
         setIsSent(true);
+        setError(false)
 
         try {
             const { data } = await axios.post(route('generator.store'), {
@@ -26,8 +27,18 @@ export default function Dashboard({ auth }) {
         } catch (err) {
             console.log(err);
             setIsLoading(false)
+            setError(true)
         }
     }
+
+    const situations = [
+        'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut fugit quibusdam, cumque culpa explicabo at recusandae id nobis esse odio doloribus corrupti quis nostrum excepturi voluptas deleniti dolorum maxime soluta?',
+        'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut fugit quibusdam, cumque culpa explicabo at recusandae id nobis esse odio doloribus corrupti quis nostrum excepturi voluptas deleniti dolorum maxime soluta?',
+        'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut fugit quibusdam, cumque culpa explicabo at recusandae id nobis esse odio doloribus corrupti quis nostrum excepturi voluptas deleniti dolorum maxime soluta?',
+        'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut fugit quibusdam, cumque culpa explicabo at recusandae id nobis esse odio doloribus corrupti quis nostrum excepturi voluptas deleniti dolorum maxime soluta?',
+        'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut fugit quibusdam, cumque culpa explicabo at recusandae id nobis esse odio doloribus corrupti quis nostrum excepturi voluptas deleniti dolorum maxime soluta?',
+        'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut fugit quibusdam, cumque culpa explicabo at recusandae id nobis esse odio doloribus corrupti quis nostrum excepturi voluptas deleniti dolorum maxime soluta?',
+    ]
 
     return (
         <AuthLayout
@@ -72,7 +83,7 @@ export default function Dashboard({ auth }) {
                         </div>
                     </div>
                 </form>
-                {isSent && (
+                {isSent ? (
                     <div className='block p-6 bg-white border border-zinc-200 rounded-lg shadow hover:bg-zinc-100 dark:bg-zinc-800 dark:border-zinc-700 dark:hover:bg-zinc-700'>
                         {isLoading ? (
                             <div className='flex justify-center items-center p-10'>
@@ -85,18 +96,37 @@ export default function Dashboard({ auth }) {
                                 </div>
                             </div>
                         ) : (
-                            <p className='whitespace-pre-wrap'>{response}</p>
+                            <p className='whitespace-pre-wrap'>{
+                                !error
+                                    ? response
+                                    : <span className='text-red-600 dark:text-red-300'>Something went wrong! Please try again.</span>
+                                }
+                            </p>
                         )}
                         {!isLoading && (
                             <div className='p-2 mt-5 flex gap-4 justify-end'>
                                 <button>
-                                    <i className="fa fa-copy"></i>
+                                    <i className="fa fa-download"></i>
+                                </button>
+                                <button>
+                                    <i className="fas fa-save"></i>
+                                </button>
+                                <button>
+                                    <i className="fas fa-copy"></i>
                                 </button>
                                 <button>
                                     <i className="fa fa-volume-high"></i>
                                 </button>
                             </div>
                         )}
+                    </div>
+                ) : (
+                    <div className='grid md:grid-cols-2 lg:grid-cols-3 gap-4 text-xs'>
+                        {situations.map((situation, index) => (
+                            <div key={index} onClick={() => setMessage(situation)} className='bg-white dark:bg-zinc-800 p-4 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-700 hover:cursor-pointer'>
+                                <p>{situation}</p>
+                            </div>
+                        ))}
                     </div>
                 )}
 

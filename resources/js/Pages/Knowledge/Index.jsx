@@ -26,7 +26,7 @@ const Index = ({ auth, knowledgeList }) => {
                 <div class="mb-3">
                     <label
                         for="formFile"
-                        class="mb-2 inline-block text-neutral-700 dark:text-neutral-200">Text file
+                        class="mb-2 inline-block text-neutral-700 dark:text-neutral-200">Upload text file
                     </label>
                     <div className="flex gap-2">
                         <input
@@ -54,7 +54,7 @@ const Index = ({ auth, knowledgeList }) => {
                                     {knowledge.name}
                                 </span>
                                 <div className="flex items-center">
-                                    <Link href="" className="text-blue-500 hover:underline p-2">Edit</Link>
+                                    <Link href={route('knowledge.edit', knowledge.id)} className="text-blue-500 hover:underline p-2">Edit</Link>
                                     <DeleteKnowledge knowledge={knowledge} />
                                 </div>
                             </div>

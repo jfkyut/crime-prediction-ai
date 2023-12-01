@@ -35,6 +35,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::middleware('is_admin')->group(function () {
         Route::get('/knowledge', [KnowledgeController::class, 'index'])->name('knowledge.index');
         Route::post('/knowledge', [KnowledgeController::class, 'store'])->name('knowledge.store');
+        Route::get('/knowledge/{knowledge}', [KnowledgeController::class, 'edit'])->name('knowledge.edit');
         Route::put('/knowledge/{knowledge}', [KnowledgeController::class, 'update'])->name('knowledge.update');
         Route::delete('/knowledge/{knowledge}', [KnowledgeController::class, 'destroy'])->name('knowledge.destroy');
     });

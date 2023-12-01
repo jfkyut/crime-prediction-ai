@@ -51,6 +51,12 @@ const SideBar = ({ user }) => {
                                 <span className="ms-3">Crime Bot</span>
                             </Link>
                         </li>
+                        <li>
+                            <Link href={route('dashboard')} className="flex items-center p-2 text-zinc-900 rounded-lg dark:text-white hover:bg-zinc-100 dark:hover:bg-zinc-700 group">
+                                <i className="fa fa-list text-zinc-500 transition duration-75 dark:text-zinc-400 group-hover:text-zinc-900 dark:group-hover:text-white"></i>
+                                <span className="ms-3">Answers</span>
+                            </Link>
+                        </li>
                     </ul>
 
                     {user.is_admin !== 0 && (
