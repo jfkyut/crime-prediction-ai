@@ -7,7 +7,9 @@ const Password = ({ auth }) => {
         <AuthLayout user={auth.user}>
             <Head title="Change password" />
             <div className="min-h-[70vh] flex justify-center">
-                <UpdatePasswordForm className="max-w-xl" />
+                <div className="w-full md:w-[80%] lg:w-[60%] xl:w-[55%] 2xl:w-[50%]">
+                    <UpdatePasswordForm className="max-w-xl" />
+                </div>
             </div>
         </AuthLayout>
     )

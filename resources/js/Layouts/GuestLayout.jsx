@@ -1,7 +1,20 @@
 import ApplicationLogo from '@/Components/ApplicationLogo';
 import { Link } from '@inertiajs/react';
+import { useEffect, useState } from 'react';
 
 export default function Guest({ children }) {
+    const [darkMode, setDarkMode] = useState(localStorage.getItem('darkMode') || 'on');
+
+    useEffect(() => {
+        if (darkMode === 'on') {
+            document.documentElement.classList.add('dark');
+            localStorage.setItem('darkMode', darkMode);
+        } else {
+            document.documentElement.classList.remove('dark');
+            localStorage.setItem('darkMode', darkMode);
+        }
+    }, [darkMode]);
+
     return (
         <div className="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-zinc-100 dark:bg-zinc-900">
             {/* <div>
