@@ -60,15 +60,19 @@ class ProfileController extends Controller
      */
     public function destroy(Request $request): RedirectResponse
     {
-        $request->validate([
-            'password' => ['required', 'current_password'],
-        ]);
+        if (Auth::user()->social === null) {
+            $request->validate([
+                'password' => ['required', 'current_password'],
+            ]);
 
-        $user = $request->user();
+            $user = $request->user();
 
-        Auth::logout();
+            Auth::logout();
 
-        $user->delete();
+            $user->delete();
+        } else {
+            Auth::user()->delete();
+        }
 
         $request->session()->invalidate();
         $request->session()->regenerateToken();

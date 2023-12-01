@@ -16,7 +16,7 @@ class KnowledgeController extends Controller
     public function index()
     {
         return Inertia::render('Knowledge/Index', [
-            'knowledgeList' => Knowledge::all()
+            'knowledgeList' => Knowledge::latest()->paginate(20)
         ]);
     }
 

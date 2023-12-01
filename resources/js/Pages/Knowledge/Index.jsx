@@ -45,20 +45,33 @@ const Index = ({ auth, knowledgeList }) => {
                 </div>
             </form>
 
-            {knowledgeList.length > 0 ? (
-                <div className="my-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
-                    {knowledgeList.map((knowledge, index) => (
-                        <div className="bg-zinc-800 p-4 h-12 max-w-lg text-xs rounded flex justify-between" key={index}>
-                            <span className="truncate">
-                                {knowledge.name}
-                            </span>
-                            <div className="flex items-center">
-                                <Link href="" className="text-blue-500 hover:underline p-2">Edit</Link>
-                                <DeleteKnowledge knowledge={knowledge} />
+            {knowledgeList.data.length > 0 ? (
+                <>
+                    <div className="my-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
+                        {knowledgeList.data.map((knowledge, index) => (
+                            <div className="bg-zinc-800 p-4 h-12 max-w-lg text-xs rounded flex justify-between" key={index}>
+                                <span className="truncate">
+                                    {knowledge.name}
+                                </span>
+                                <div className="flex items-center">
+                                    <Link href="" className="text-blue-500 hover:underline p-2">Edit</Link>
+                                    <DeleteKnowledge knowledge={knowledge} />
+                                </div>
                             </div>
-                        </div>
-                    ))}
-                </div>
+                        ))}
+                    </div>
+                    {knowledgeList.links.length > 3 && (
+                        <nav aria-label="Page navigation example">
+                            <ul class="inline-flex -space-x-px text-sm">
+                                {knowledgeList.links.map((link, index) => (
+                                    <li key={index}>
+                                        <Link href={link.url} class="flex items-center justify-center px-3 h-8 leading-tight text-zinc-500 bg-white border border-zinc-300 hover:bg-zinc-100 hover:text-zinc-700 dark:bg-zinc-800 dark:border-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-700 dark:hover:text-white" dangerouslySetInnerHTML={{ __html: link.label }}></Link>
+                                    </li>
+                                ))}
+                            </ul>
+                        </nav>
+                    )}
+                </>
             ) : (
                 <div className="min-h-[50vh] flex justify-center items-center text-2xl font-bold uppercase">No knowledge files</div>
             )}

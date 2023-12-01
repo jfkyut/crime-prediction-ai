@@ -48,7 +48,7 @@ const SideBar = ({ user }) => {
                         <li>
                             <Link href={route('dashboard')} className="flex items-center p-2 text-zinc-900 rounded-lg dark:text-white hover:bg-zinc-100 dark:hover:bg-zinc-700 group">
                                 <i className="fa fa-robot text-zinc-500 transition duration-75 dark:text-zinc-400 group-hover:text-zinc-900 dark:group-hover:text-white"></i>
-                                <span className="ms-3">AI Generator</span>
+                                <span className="ms-3">Crime Bot</span>
                             </Link>
                         </li>
                     </ul>
@@ -70,18 +70,22 @@ const SideBar = ({ user }) => {
 
                     {/* border top here */}
                     <ul className="pt-4 mt-4 space-y-2 font-medium border-t border-zinc-200 dark:border-zinc-700">
-                        <li>
-                            <Link href={route('profile.email')} className="flex items-center p-2 text-zinc-900 transition duration-75 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-700 dark:text-white group">
-                                <i className="fa fa-at text-zinc-500 transition duration-75 dark:text-zinc-400 group-hover:text-zinc-900 dark:group-hover:text-white"></i>
-                                <span className="ms-3">Edit email</span>
-                            </Link>
-                        </li>
-                        <li>
-                            <Link href={route('profile.password')} className="flex items-center p-2 text-zinc-900 transition duration-75 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-700 dark:text-white group">
-                                <i className="fa fa-lock text-zinc-500 transition duration-75 dark:text-zinc-400 group-hover:text-zinc-900 dark:group-hover:text-white"></i>
-                                <span className="ms-3">Change password</span>
-                            </Link>
-                        </li>
+                        {user.social === null && (
+                            <>
+                                <li>
+                                    <Link href={route('profile.email')} className="flex items-center p-2 text-zinc-900 transition duration-75 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-700 dark:text-white group">
+                                        <i className="fa fa-at text-zinc-500 transition duration-75 dark:text-zinc-400 group-hover:text-zinc-900 dark:group-hover:text-white"></i>
+                                        <span className="ms-3">Edit email</span>
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link href={route('profile.password')} className="flex items-center p-2 text-zinc-900 transition duration-75 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-700 dark:text-white group">
+                                        <i className="fa fa-lock text-zinc-500 transition duration-75 dark:text-zinc-400 group-hover:text-zinc-900 dark:group-hover:text-white"></i>
+                                        <span className="ms-3">Change password</span>
+                                    </Link>
+                                </li>
+                            </>
+                        )}
                         <li>
                             <Link href={route('profile.delete')} className="flex items-center p-2 text-zinc-900 transition duration-75 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-700 dark:text-white group">
                                 <i className="fa fa-trash text-zinc-500 transition duration-75 dark:text-zinc-400 group-hover:text-zinc-900 dark:group-hover:text-white"></i>

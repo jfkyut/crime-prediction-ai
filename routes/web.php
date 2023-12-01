@@ -28,21 +28,25 @@ Route::middleware('guest')->group(function () {
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/ai-generator', [CrimeController::class, 'create'])->name('dashboard');
-    Route::post('/ai-generator', [CrimeController::class, 'store'])->name('generator.store');
+    Route::get('/crime-bot', [CrimeController::class, 'create'])->name('dashboard');
+    Route::post('/crime-bot', [CrimeController::class, 'store'])->name('generator.store');
 
     // knowledge
-    Route::get('/knowledge', [KnowledgeController::class, 'index'])->name('knowledge.index');
-    Route::post('/knowledge', [KnowledgeController::class, 'store'])->name('knowledge.store');
-    Route::put('/knowledge/{knowledge}', [KnowledgeController::class, 'update'])->name('knowledge.update');
-    Route::delete('/knowledge/{knowledge}', [KnowledgeController::class, 'destroy'])->name('knowledge.destroy');
+    Route::middleware('is_admin')->group(function () {
+        Route::get('/knowledge', [KnowledgeController::class, 'index'])->name('knowledge.index');
+        Route::post('/knowledge', [KnowledgeController::class, 'store'])->name('knowledge.store');
+        Route::put('/knowledge/{knowledge}', [KnowledgeController::class, 'update'])->name('knowledge.update');
+        Route::delete('/knowledge/{knowledge}', [KnowledgeController::class, 'destroy'])->name('knowledge.destroy');
+    });
 
     // profile
     // Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    Route::get('/profile/change-password', [ProfileController::class, 'passwordPage'])->name('profile.password');
-    Route::get('/profile/edit-email', [ProfileController::class, 'emailPage'])->name('profile.email');
+    Route::middleware('social_null')->group(function () {
+        Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+        Route::get('/profile/change-password', [ProfileController::class, 'passwordPage'])->name('profile.password');
+        Route::get('/profile/edit-email', [ProfileController::class, 'emailPage'])->name('profile.email');
+    });
     Route::get('/profile/delete-account', [ProfileController::class, 'deletePage'])->name('profile.delete');
 });
 

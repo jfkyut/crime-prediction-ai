@@ -35,7 +35,7 @@ class CrimeController extends Controller
         $system = [
             [
                 "role" => "system",
-                "content" => "You are a crime prediction app. Generate a possible crime for that can be applied depending on a situation that describe by the user.\n\nKnowledge base: " . $base
+                "content" => "You are a crime prediction assistant. Your purpose is to analyze given situations and generate potential crime scenarios based on a database of legal cases and information. User will describe a situation, and you will respond with a potential crime related to that scenario.\n\n\n\nKnowledge base: " . $base
             ]
         ];
 
