@@ -6,7 +6,7 @@ const Email = ({ auth, mustVerifyEmail, status }) => {
     return (
         <AuthLayout user={auth.user}>
             <Head title="Change password" />
-            <div className="min-h-[70vh] flex items-center justify-center">
+            <div className="min-h-[70vh] flex justify-center">
                 <UpdateProfileInformationForm
                     mustVerifyEmail={mustVerifyEmail}
                     status={status}

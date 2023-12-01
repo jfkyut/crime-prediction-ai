@@ -6,7 +6,7 @@ const Delete = ({ auth }) => {
     return (
         <AuthLayout user={auth.user}>
             <Head title="Delete account" />
-            <div className="min-h-[70vh] flex items-center justify-center">
+            <div className="min-h-[70vh] flex justify-center">
                 <DeleteUserForm className="max-w-xl" user={auth.user} />
             </div>
         </AuthLayout>

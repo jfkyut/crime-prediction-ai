@@ -30,7 +30,15 @@ export default function Dashboard({ auth }) {
     }
 
     return (
-        <AuthLayout user={auth.user}>
+        <AuthLayout
+            user={auth.user}
+            header={
+                <>
+                    <h1 className="text-2xl font-bold uppercase">Crime prediction ai</h1>
+                    <p className="leading-relaxed text-base">Describe your situation and the Bot will try to identify which crime could be apply in a given situation.</p>
+                </>
+            }
+        >
             <Head title="Home" />
             <div>
                 <form onSubmit={prompt} className='w-full'>
