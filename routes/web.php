@@ -48,7 +48,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // profile
     // Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    Route::middleware('social_null')->group(function () {
+    Route::middleware('has_password')->group(function () {
         Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
         Route::get('/profile/change-password', [ProfileController::class, 'passwordPage'])->name('profile.password');
         Route::get('/profile/edit-email', [ProfileController::class, 'emailPage'])->name('profile.email');

@@ -49,7 +49,7 @@ const Index = ({ auth, knowledgeList }) => {
                 <>
                     <div className="my-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
                         {knowledgeList.data.map((knowledge, index) => (
-                            <div className="bg-zinc-800 p-4 h-12 max-w-lg text-xs rounded flex justify-between" key={index}>
+                            <div className="border dark:border-zinc-700 dark:bg-zinc-800 p-4 h-12 max-w-lg text-xs rounded flex justify-between" key={index}>
                                 <span className="truncate">
                                     {knowledge.name}
                                 </span>
@@ -73,7 +73,7 @@ const Index = ({ auth, knowledgeList }) => {
                     )}
                 </>
             ) : (
-                <div className="min-h-[50vh] flex justify-center items-center text-2xl font-bold uppercase">No knowledge files</div>
+                <div className="min-h-[20vh] flex justify-center items-center text-2xl font-bold uppercase">No knowledge files</div>
             )}
 
         </AuthLayout>

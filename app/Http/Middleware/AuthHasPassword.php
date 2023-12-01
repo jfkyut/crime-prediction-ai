@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class SocialNull
+class AuthHasPassword
 {
     /**
      * Handle an incoming request.
@@ -15,8 +15,8 @@ class SocialNull
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if ($request->user()->social !== null) {
-            return abort(401);
+        if (!$request->user()->has_password) {
+            return abort(404);
         }
 
         return $next($request);

@@ -42,6 +42,7 @@ class OAuthController extends Controller
                     'name' => $socialUser->getName(),
                     'email' => $socialUser->getEmail(),
                     'email_verified_at' => Date::now('Asia/Manila')->format('Y-m-d'),
+                    'has_password' => false
                 ]);
 
                 Auth::login($newUser, true);

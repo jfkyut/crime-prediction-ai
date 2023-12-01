@@ -60,7 +60,7 @@ class ProfileController extends Controller
      */
     public function destroy(Request $request): RedirectResponse
     {
-        if (Auth::user()->social === null) {
+        if (Auth::user()->has_password) {
             $request->validate([
                 'password' => ['required', 'current_password'],
             ]);

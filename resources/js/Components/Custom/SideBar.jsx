@@ -28,9 +28,32 @@ const SideBar = ({ user }) => {
         setOpenSideBar(true)
     }
 
+    // theme
+
+    const darkModeToggleRef = useRef(null);
+    const [darkMode, setDarkMode] = useState(localStorage.getItem('darkMode') || 'on');
+
+    useEffect(() => {
+        if (darkMode === 'on') {
+            document.documentElement.classList.add('dark');
+            localStorage.setItem('darkMode', darkMode);
+        } else {
+            document.documentElement.classList.remove('dark');
+            localStorage.setItem('darkMode', darkMode);
+        }
+    }, [darkMode]);
+
+    const toggleTheme = (e) => {
+        if (e.target.checked) {
+            setDarkMode("on");
+        } else {
+            setDarkMode("off")
+        }
+    }
+
     return (
         <>
-            <button onClick={openSide} data-drawer-target="sidebar-multi-level-sidebar" data-drawer-toggle="sidebar-multi-level-sidebar" aria-controls="sidebar-multi-level-sidebar" type="button" className="inline-flex items-center p-2 mt-2 ms-3 text-sm text-zinc-500 rounded-lg sm:hidden hover:bg-zinc-100 focus:outline-none focus:ring-2 focus:ring-zinc-200 dark:text-zinc-400 dark:hover:bg-zinc-700 dark:focus:ring-zinc-600 fixed z-10">
+            <button onClick={openSide} data-drawer-target="sidebar-multi-level-sidebar" data-drawer-toggle="sidebar-multi-level-sidebar" aria-controls="sidebar-multi-level-sidebar" type="button" className="inline-flex items-center p-2 mt-2 ms-3 text-sm text-zinc-500 rounded-lg sm:hidden hover:bg-zinc-200 focus:outline-none focus:ring-2 focus:ring-zinc-200 dark:text-zinc-400 dark:hover:bg-zinc-700 dark:focus:ring-zinc-600 fixed z-10">
                 <span className="sr-only">Open sidebar</span>
                     <svg className="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                     <path clip-rule="evenodd" fill-rule="evenodd" d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"></path>
@@ -43,30 +66,55 @@ const SideBar = ({ user }) => {
                 className={`${!openSideBar && "-translate-x-full"} fixed top-0 left-0 z-40 w-64 h-screen transition-transform sm:translate-x-0`}
                 aria-label="Sidebar">
 
-                <div className="h-full px-3 py-4 overflow-y-auto bg-zinc-50 dark:bg-zinc-800">
+                <div className="h-full px-3 py-4 overflow-y-auto bg-zinc-100 dark:bg-zinc-800">
                     <ul className="space-y-2 font-medium">
                         <li>
-                            <Link href={route('dashboard')} className="flex items-center p-2 text-zinc-900 rounded-lg dark:text-white hover:bg-zinc-100 dark:hover:bg-zinc-700 group">
+                            <Link href={route('dashboard')} className="flex items-center p-2 text-zinc-900 rounded-lg dark:text-white hover:bg-zinc-200 dark:hover:bg-zinc-700 group">
                                 <i className="fa fa-robot text-zinc-500 transition duration-75 dark:text-zinc-400 group-hover:text-zinc-900 dark:group-hover:text-white"></i>
                                 <span className="ms-3">Crime bot</span>
                             </Link>
                         </li>
                         <li>
-                            <Link href={route('answer.index')} className="flex items-center p-2 text-zinc-900 rounded-lg dark:text-white hover:bg-zinc-100 dark:hover:bg-zinc-700 group">
+                            <Link href={route('answer.index')} className="flex items-center p-2 text-zinc-900 rounded-lg dark:text-white hover:bg-zinc-200 dark:hover:bg-zinc-700 group">
                                 <i className="fa fa-list text-zinc-500 transition duration-75 dark:text-zinc-400 group-hover:text-zinc-900 dark:group-hover:text-white"></i>
                                 <span className="ms-3">Saved answers</span>
                             </Link>
                         </li>
                     </ul>
 
+                    <ul className="pt-4 mt-4 space-y-2 font-medium border-t border-zinc-200 dark:border-zinc-700">
+                        <li>
+                            <div href={route('knowledge.index')} className="flex items-center justify-between p-2 text-zinc-900 transition duration-75 rounded-lg hover:bg-zinc-200 dark:hover:bg-zinc-700 dark:text-white group">
+                                <div>
+                                    <i className="fa fa-moon text-zinc-500 transition duration-75 dark:text-zinc-400 group-hover:text-zinc-900 dark:group-hover:text-white"></i>
+                                    <span className="ms-3">Dark mode</span>
+                                </div>
+                                <div>
+                                    <label class="relative inline-flex items-center cursor-pointer">
+                                        <input
+                                            ref={darkModeToggleRef}
+                                            type="checkbox"
+                                            class="sr-only peer"
+                                            onChange={toggleTheme}
+                                            checked={darkMode === 'on' ? true : false}
+                                        />
+                                        <div class="w-11 h-6 bg-zinc-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-lime-300 dark:peer-focus:ring-lime-800 rounded-full peer dark:bg-zinc-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-zinc-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-zinc-600 peer-checked:bg-lime-600"></div>
+                                    </label>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+
                     {user.is_admin !== 0 && (
                         <ul className="pt-4 mt-4 space-y-2 font-medium border-t border-zinc-200 dark:border-zinc-700">
                             <li>
-                                <Link href={route('knowledge.index')} className="flex items-center p-2 text-zinc-900 transition duration-75 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-700 dark:text-white group">
+                                <Link href={route('knowledge.index')} className="flex items-center p-2 text-zinc-900 transition duration-75 rounded-lg hover:bg-zinc-200 dark:hover:bg-zinc-700 dark:text-white group">
                                     <i className="fa fa-file text-zinc-500 transition duration-75 dark:text-zinc-400 group-hover:text-zinc-900 dark:group-hover:text-white"></i>
                                     <span className="ms-3">Knowledge files</span>
                                 </Link>
-                                <Link href={route('profile.email')} className="flex items-center p-2 text-zinc-900 transition duration-75 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-700 dark:text-white group">
+                            </li>
+                            <li>
+                                <Link href={route('profile.email')} className="flex items-center p-2 text-zinc-900 transition duration-75 rounded-lg hover:bg-zinc-200 dark:hover:bg-zinc-700 dark:text-white group">
                                     <i className="fa fa-users text-zinc-500 transition duration-75 dark:text-zinc-400 group-hover:text-zinc-900 dark:group-hover:text-white"></i>
                                     <span className="ms-3">Manage users</span>
                                 </Link>
@@ -76,16 +124,16 @@ const SideBar = ({ user }) => {
 
                     {/* border top here */}
                     <ul className="pt-4 mt-4 space-y-2 font-medium border-t border-zinc-200 dark:border-zinc-700">
-                        {user.social === null && (
+                        {user.has_password !== 0 && (
                             <>
                                 <li>
-                                    <Link href={route('profile.email')} className="flex items-center p-2 text-zinc-900 transition duration-75 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-700 dark:text-white group">
+                                    <Link href={route('profile.email')} className="flex items-center p-2 text-zinc-900 transition duration-75 rounded-lg hover:bg-zinc-200 dark:hover:bg-zinc-700 dark:text-white group">
                                         <i className="fa fa-at text-zinc-500 transition duration-75 dark:text-zinc-400 group-hover:text-zinc-900 dark:group-hover:text-white"></i>
                                         <span className="ms-3">Edit email</span>
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link href={route('profile.password')} className="flex items-center p-2 text-zinc-900 transition duration-75 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-700 dark:text-white group">
+                                    <Link href={route('profile.password')} className="flex items-center p-2 text-zinc-900 transition duration-75 rounded-lg hover:bg-zinc-200 dark:hover:bg-zinc-700 dark:text-white group">
                                         <i className="fa fa-lock text-zinc-500 transition duration-75 dark:text-zinc-400 group-hover:text-zinc-900 dark:group-hover:text-white"></i>
                                         <span className="ms-3">Change password</span>
                                     </Link>
@@ -93,13 +141,13 @@ const SideBar = ({ user }) => {
                             </>
                         )}
                         <li>
-                            <Link href={route('profile.delete')} className="flex items-center p-2 text-zinc-900 transition duration-75 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-700 dark:text-white group">
+                            <Link href={route('profile.delete')} className="flex items-center p-2 text-zinc-900 transition duration-75 rounded-lg hover:bg-zinc-200 dark:hover:bg-zinc-700 dark:text-white group">
                                 <i className="fa fa-trash text-zinc-500 transition duration-75 dark:text-zinc-400 group-hover:text-zinc-900 dark:group-hover:text-white"></i>
                                 <span className="ms-3">Delete account</span>
                             </Link>
                         </li>
                         <li>
-                            <Link href={route('logout')} as="button" method="POST" className="flex items-center p-2 text-zinc-900 transition duration-75 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-700 dark:text-white group w-full">
+                            <Link href={route('logout')} as="button" method="POST" className="flex items-center p-2 text-zinc-900 transition duration-75 rounded-lg hover:bg-zinc-200 dark:hover:bg-zinc-700 dark:text-white group w-full">
                                 <i className="fa fa-sign-out text-zinc-500 transition duration-75 dark:text-zinc-400 group-hover:text-zinc-900 dark:group-hover:text-white"></i>
                                 <span className="ms-3">Logout</span>
                             </Link>

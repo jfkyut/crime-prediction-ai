@@ -5,6 +5,7 @@ import axios from 'axios';
 import SaveAnswer from '@/Components/Custom/SaveAnswer';
 
 export default function Dashboard({ auth }) {
+
     const [isLoading, setIsLoading] = useState(false);
     const [message, setMessage] = useState("");
     const [response, setResponse] = useState(null);
@@ -41,6 +42,18 @@ export default function Dashboard({ auth }) {
         'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut fugit quibusdam, cumque culpa explicabo at recusandae id nobis esse odio doloribus corrupti quis nostrum excepturi voluptas deleniti dolorum maxime soluta?',
         'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut fugit quibusdam, cumque culpa explicabo at recusandae id nobis esse odio doloribus corrupti quis nostrum excepturi voluptas deleniti dolorum maxime soluta?',
     ]
+
+    const [isCopied, setIsCopied] = useState(false);
+
+    const copy = () => {
+        navigator.clipboard.writeText(response);
+        setIsCopied(true);
+
+        let timer = setTimeout(() => {
+            setIsCopied(false);
+            clearTimeout(timer);
+        }, 3000);
+    }
 
     return (
         <AuthLayout
@@ -80,6 +93,7 @@ export default function Dashboard({ auth }) {
                             ) : (
                                 <button type="submit" className="text-white bg-lime-700 hover:bg-lime-800 focus:ring-4 focus:ring-lime-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 dark:bg-lime-600 dark:hover:bg-lime-700 dark:focus:ring-lime-800 inline-flex items-center">
                                     Prompt
+                                    <i className="fa fa-paper-plane ml-2"></i>
                                 </button>
                             )}
                         </div>
@@ -108,8 +122,8 @@ export default function Dashboard({ auth }) {
                         {!isLoading && (
                             <div className='p-2 mt-5 flex gap-4 justify-end'>
                                 <SaveAnswer situation={lastMessage} response={response} />
-                                <button>
-                                    <i className="fas fa-copy"></i>
+                                <button onClick={copy}>
+                                    <i className={`fas ${isCopied ? "fa-clipboard-check" : "fa-clipboard"}`}></i>
                                 </button>
                                 <button>
                                     <i className="fa fa-volume-high"></i>
@@ -118,9 +132,9 @@ export default function Dashboard({ auth }) {
                         )}
                     </div>
                 ) : (
-                    <div className='grid md:grid-cols-2 lg:grid-cols-3 gap-4 text-xs'>
+                    <div className='grid md:grid-cols-2 lg:grid-cols-3 gap-4 text-xs mt-5'>
                         {situations.map((situation, index) => (
-                            <div key={index} onClick={() => setMessage(situation)} className='bg-white dark:bg-zinc-800 p-4 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-700 hover:cursor-pointer'>
+                            <div key={index} onClick={() => setMessage(situation)} className='bg-zinc-100 dark:bg-zinc-800 p-4 rounded-lg hover:bg-zinc-200 dark:hover:bg-zinc-700 hover:cursor-pointer'>
                                 <p>{situation}</p>
                             </div>
                         ))}

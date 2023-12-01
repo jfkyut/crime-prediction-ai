@@ -10,16 +10,9 @@ export default function Guest({ children }) {
                 </Link>
             </div> */}
 
-            <div className="w-full max-w-sm p-4 bg-white border border-zinc-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-zinc-800 dark:border-zinc-700 mt-5">
-                <h5 class="text-xl font-medium text-gray-900 dark:text-white mb-6">
-                    {route().current('login')
-                        ? "Sign in to our platform"
-                        : route().current('register')
-                            ? "Sign up to our platform"
-                            : route().current('password.request')
-                                ? "Forgot password"
-                                : <span className='uppercase'>{route().current().replace('.', ' ')}</span>
-                    }
+            <div className="w-full max-w-sm p-4 md:bg-white md:border md:border-zinc-200 rounded-lg md:shadow sm:p-6 md:p-8 md:dark:bg-zinc-800 md:dark:border-zinc-700 mt-5">
+                <h5 class="text-xl font-medium text-gray-900 dark:text-white mb-6 uppercase text-center">
+                    {route().current().replace('.', ' ')}
                 </h5>
                 {children}
             </div>

@@ -66,7 +66,7 @@ export default function DeleteUserForm({ className = '', user }) {
                         enter your password to confirm you would like to permanently delete your account.
                     </p>
 
-                    {user.social === null && (
+                    {user.has_password !== 0 && (
                         <div className="mt-6">
                             <InputLabel htmlFor="password" value="Password" className="sr-only" />
 

@@ -9,12 +9,14 @@ const AuthLayout = ({ user, children, header }) => {
                     {header}
                 </header>
                 <main>
-                    <div className="absolute right-[5%] top-2">
+                    <div className="fixed right-[5%] top-5">
                         <div className="text-zinc-700 dark:text-zinc-300 border dark:border-zinc-700 px-4 py-2 rounded-md max-w-[120px] sm:max-w-[150px] md:max-w-[250px] lg:max-w-[300px] truncate">{user.email}</div>
                     </div>
                     {children}
                 </main>
-                <footer></footer>
+                <footer>
+                    
+                </footer>
             </div>
         </>
     )
