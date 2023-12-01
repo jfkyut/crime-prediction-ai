@@ -4,6 +4,7 @@ use App\Http\Controllers\AnswerController;
 use App\Http\Controllers\CrimeController;
 use App\Http\Controllers\KnowledgeController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -43,6 +44,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/knowledge/{knowledge}', [KnowledgeController::class, 'edit'])->name('knowledge.edit');
         Route::put('/knowledge/{knowledge}', [KnowledgeController::class, 'update'])->name('knowledge.update');
         Route::delete('/knowledge/{knowledge}', [KnowledgeController::class, 'destroy'])->name('knowledge.destroy');
+
+        Route::get('/users', [UserController::class, 'index'])->name('user.index');
+        Route::put('/users/{user}', [UserController::class, 'promote'])->name('user.promote');
+        Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('user.destroy');
     });
 
     // profile

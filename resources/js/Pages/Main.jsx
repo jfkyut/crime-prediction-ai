@@ -125,9 +125,9 @@ export default function Dashboard({ auth }) {
                                 <button onClick={copy}>
                                     <i className={`fas ${isCopied ? "fa-clipboard-check" : "fa-clipboard"}`}></i>
                                 </button>
-                                <button>
+                                {/* <button>
                                     <i className="fa fa-volume-high"></i>
-                                </button>
+                                </button> */}
                             </div>
                         )}
                     </div>

@@ -82,29 +82,6 @@ const SideBar = ({ user }) => {
                         </li>
                     </ul>
 
-                    <ul className="pt-4 mt-4 space-y-2 font-medium border-t border-zinc-200 dark:border-zinc-700">
-                        <li>
-                            <div href={route('knowledge.index')} className="flex items-center justify-between p-2 text-zinc-900 transition duration-75 rounded-lg hover:bg-zinc-200 dark:hover:bg-zinc-700 dark:text-white group">
-                                <div>
-                                    <i className="fa fa-moon text-zinc-500 transition duration-75 dark:text-zinc-400 group-hover:text-zinc-900 dark:group-hover:text-white"></i>
-                                    <span className="ms-3">Dark mode</span>
-                                </div>
-                                <div>
-                                    <label class="relative inline-flex items-center cursor-pointer">
-                                        <input
-                                            ref={darkModeToggleRef}
-                                            type="checkbox"
-                                            class="sr-only peer"
-                                            onChange={toggleTheme}
-                                            checked={darkMode === 'on' ? true : false}
-                                        />
-                                        <div class="w-11 h-6 bg-zinc-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-lime-300 dark:peer-focus:ring-lime-800 rounded-full peer dark:bg-zinc-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-zinc-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-zinc-600 peer-checked:bg-lime-600"></div>
-                                    </label>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-
                     {user.is_admin !== 0 && (
                         <ul className="pt-4 mt-4 space-y-2 font-medium border-t border-zinc-200 dark:border-zinc-700">
                             <li>
@@ -114,7 +91,7 @@ const SideBar = ({ user }) => {
                                 </Link>
                             </li>
                             <li>
-                                <Link href={route('profile.email')} className="flex items-center p-2 text-zinc-900 transition duration-75 rounded-lg hover:bg-zinc-200 dark:hover:bg-zinc-700 dark:text-white group">
+                                <Link href={route('user.index')} className="flex items-center p-2 text-zinc-900 transition duration-75 rounded-lg hover:bg-zinc-200 dark:hover:bg-zinc-700 dark:text-white group">
                                     <i className="fa fa-users text-zinc-500 transition duration-75 dark:text-zinc-400 group-hover:text-zinc-900 dark:group-hover:text-white"></i>
                                     <span className="ms-3">Manage users</span>
                                 </Link>
@@ -151,6 +128,29 @@ const SideBar = ({ user }) => {
                                 <i className="fa fa-sign-out text-zinc-500 transition duration-75 dark:text-zinc-400 group-hover:text-zinc-900 dark:group-hover:text-white"></i>
                                 <span className="ms-3">Logout</span>
                             </Link>
+                        </li>
+                    </ul>
+
+                    <ul className="pt-4 mt-4 space-y-2 font-medium border-t border-zinc-200 dark:border-zinc-700">
+                        <li>
+                            <div href={route('knowledge.index')} className="flex items-center justify-between p-2 text-zinc-900 transition duration-75 rounded-lg hover:bg-zinc-200 dark:hover:bg-zinc-700 dark:text-white group">
+                                <div>
+                                    <i className="fa fa-moon text-zinc-500 transition duration-75 dark:text-zinc-400 group-hover:text-zinc-900 dark:group-hover:text-white"></i>
+                                    <span className="ms-3">Dark mode</span>
+                                </div>
+                                <div>
+                                    <label class="relative inline-flex items-center cursor-pointer">
+                                        <input
+                                            ref={darkModeToggleRef}
+                                            type="checkbox"
+                                            class="sr-only peer"
+                                            onChange={toggleTheme}
+                                            checked={darkMode === 'on' ? true : false}
+                                        />
+                                        <div class="w-11 h-6 bg-zinc-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-lime-300 dark:peer-focus:ring-lime-800 rounded-full peer dark:bg-zinc-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-zinc-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-zinc-600 peer-checked:bg-lime-600"></div>
+                                    </label>
+                                </div>
+                            </div>
                         </li>
                     </ul>
                 </div>
