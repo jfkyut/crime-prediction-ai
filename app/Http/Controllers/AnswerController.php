@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Inertia\Inertia;
 use App\Models\Answer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\StoreAnswerRequest;
+use Illuminate\Support\Facades\Crypt;
 
 class AnswerController extends Controller
 {
@@ -12,31 +16,45 @@ class AnswerController extends Controller
      */
     public function index()
     {
-        //
-    }
+        $answers = Auth::user()->answers()->latest()->paginate(10);
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        foreach ($answers as $answer) {
+            $answer['situation'] = Crypt::decryptString($answer['situation']);
+            $answer['response'] = Crypt::decryptString($answer['response']);
+            $answer['description'] = Crypt::decryptString($answer['description']);
+        }
+
+        return Inertia::render('Answer/Index', ['answers' => $answers]);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreAnswerRequest $request)
     {
-        //
+        $newAnswer = $request->validated();
+
+        $newAnswer['situation'] = Crypt::encryptString($newAnswer['situation']);
+        $newAnswer['response'] = Crypt::encryptString($newAnswer['response']);
+        $newAnswer['description'] = Crypt::encryptString($newAnswer['description']);
+
+        Auth::user()->answers()->create($newAnswer);
+
+        return back();
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Answer $answer)
+    public function show($id)
     {
-        //
+        $answer = Auth::user()->answers()->where('id', $id)->first();
+
+        $answer['situation'] = Crypt::decryptString($answer['situation']);
+        $answer['response'] = Crypt::decryptString($answer['response']);
+        $answer['description'] = Crypt::decryptString($answer['description']);
+
+        return Inertia::render('Answer/Show', ['answer' => $answer]);
     }
 
     /**

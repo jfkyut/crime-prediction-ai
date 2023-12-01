@@ -13,9 +13,10 @@ return new class extends Migration
     {
         Schema::create('answers', function (Blueprint $table) {
             $table->id();
-            $table->string('description');
-            $table->string('question');
-            $table->string('answer');
+            $table->longText('description');
+            $table->longText('situation');
+            $table->longText('response');
+            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->timestamps();
         });
     }

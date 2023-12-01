@@ -1,10 +1,9 @@
 <?php
 
+use App\Http\Controllers\AnswerController;
 use App\Http\Controllers\CrimeController;
-use App\Http\Controllers\GeneratorController;
 use App\Http\Controllers\KnowledgeController;
 use App\Http\Controllers\ProfileController;
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -30,6 +29,12 @@ Route::middleware('guest')->group(function () {
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/crime-bot', [CrimeController::class, 'create'])->name('dashboard');
     Route::post('/crime-bot', [CrimeController::class, 'store'])->name('generator.store');
+
+    // answers
+    Route::get('/answers', [AnswerController::class, 'index'])->name('answer.index');
+    Route::post('/answers', [AnswerController::class, 'store'])->name('answer.store');
+    Route::get('/answers/{answer}', [AnswerController::class, 'show'])->name('answer.show');
+    Route::delete('/answers/{answer}', [AnswerController::class, 'destroy'])->name('answer.destroy');
 
     // knowledge
     Route::middleware('is_admin')->group(function () {

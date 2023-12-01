@@ -2,6 +2,7 @@ import { Head } from '@inertiajs/react';
 import AuthLayout from '@/Layouts/Custom/AuthLayout';
 import { useState } from 'react';
 import axios from 'axios';
+import SaveAnswer from '@/Components/Custom/SaveAnswer';
 
 export default function Dashboard({ auth }) {
     const [isLoading, setIsLoading] = useState(false);
@@ -9,12 +10,14 @@ export default function Dashboard({ auth }) {
     const [response, setResponse] = useState(null);
     const [isSent, setIsSent] = useState(false);
     const [error, setError] = useState(false);
+    const [lastMessage, setLastMessage] = useState("");
 
     const prompt = async (e) => {
         e.preventDefault();
         setIsLoading(true);
         setIsSent(true);
-        setError(false)
+        setError(false);
+        setLastMessage(message);
 
         try {
             const { data } = await axios.post(route('generator.store'), {
@@ -22,7 +25,6 @@ export default function Dashboard({ auth }) {
             });
 
             setResponse(data)
-            console.log(data);
             setIsLoading(false)
         } catch (err) {
             console.log(err);
@@ -45,12 +47,12 @@ export default function Dashboard({ auth }) {
             user={auth.user}
             header={
                 <>
-                    <h1 className="text-2xl font-bold uppercase">Crime prediction ai</h1>
+                    <h1 className="text-2xl font-bold uppercase">Crime prediction bot</h1>
                     <p className="leading-relaxed text-base">Describe your situation and the Bot will try to identify which crime could be apply in a given situation.</p>
                 </>
             }
         >
-            <Head title="Home" />
+            <Head title="Bot" />
             <div>
                 <form onSubmit={prompt} className='w-full'>
                     <div className="w-full mb-4 border border-zinc-200 rounded-lg bg-zinc-50 dark:bg-zinc-700 dark:border-zinc-600">
@@ -105,12 +107,7 @@ export default function Dashboard({ auth }) {
                         )}
                         {!isLoading && (
                             <div className='p-2 mt-5 flex gap-4 justify-end'>
-                                <button>
-                                    <i className="fa fa-download"></i>
-                                </button>
-                                <button>
-                                    <i className="fas fa-save"></i>
-                                </button>
+                                <SaveAnswer situation={lastMessage} response={response} />
                                 <button>
                                     <i className="fas fa-copy"></i>
                                 </button>

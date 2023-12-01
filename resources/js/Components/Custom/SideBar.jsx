@@ -48,13 +48,13 @@ const SideBar = ({ user }) => {
                         <li>
                             <Link href={route('dashboard')} className="flex items-center p-2 text-zinc-900 rounded-lg dark:text-white hover:bg-zinc-100 dark:hover:bg-zinc-700 group">
                                 <i className="fa fa-robot text-zinc-500 transition duration-75 dark:text-zinc-400 group-hover:text-zinc-900 dark:group-hover:text-white"></i>
-                                <span className="ms-3">Crime Bot</span>
+                                <span className="ms-3">Crime bot</span>
                             </Link>
                         </li>
                         <li>
-                            <Link href={route('dashboard')} className="flex items-center p-2 text-zinc-900 rounded-lg dark:text-white hover:bg-zinc-100 dark:hover:bg-zinc-700 group">
+                            <Link href={route('answer.index')} className="flex items-center p-2 text-zinc-900 rounded-lg dark:text-white hover:bg-zinc-100 dark:hover:bg-zinc-700 group">
                                 <i className="fa fa-list text-zinc-500 transition duration-75 dark:text-zinc-400 group-hover:text-zinc-900 dark:group-hover:text-white"></i>
-                                <span className="ms-3">Answers</span>
+                                <span className="ms-3">Saved answers</span>
                             </Link>
                         </li>
                     </ul>

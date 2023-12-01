@@ -11,7 +11,12 @@ class Answer extends Model
 
     protected $fillable = [
         'description',
-        'question',
-        'answer'
+        'situation',
+        'response'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
