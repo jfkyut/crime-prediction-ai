@@ -27,13 +27,14 @@ class OAuthController extends Controller
 
             $existingUser = User::where('email', $socialUser->getEmail())->first();
 
-            if ($existingUser) {
+            if ($existingUser && $existingUser['social_id'] !== null) {
+
                 $correctId = $socialUser->getId() === Crypt::decrypt($existingUser['social_id']);
 
                 if ($correctId) {
                     Auth::login($existingUser, true);
                 } else {
-                    return redirect(route('login'));
+                    return redirect('/');
                 }
             } else {
                 $newUser = User::create([
@@ -48,13 +49,13 @@ class OAuthController extends Controller
                 Auth::login($newUser, true);
             }
         } catch (QueryException $err) {
-            return redirect(route('login'))
+            return redirect('/')
                         ->with('error', 'Error: ' . $err->getCode() . '. Email already registered with different provider.');
         } catch (InvalidStateException $err) {
-            return redirect(route('login'))
+            return redirect('/')
                         ->with('error', 'Error: ' . $err->getCode() . '. Something went wrong!');
         } catch (ClientException $err) {
-            return redirect(route('login'))
+            return redirect('/')
                         ->with('error', 'Error: ' . $err->getCode() . '. ' . $err->getMessage());
         }
 
