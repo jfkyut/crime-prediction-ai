@@ -62,8 +62,11 @@ export default function DeleteUserForm({ className = '', user }) {
                     </h2>
 
                     <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
-                        Once your account is deleted, all of its resources and data will be permanently deleted. Please
-                        enter your password to confirm you would like to permanently delete your account.
+                        Once your account is deleted, all of its resources and data will be permanently deleted.
+                        {user.has_password
+                            ? <>Please enter your password to confirm you would like to permanently delete your account.</>
+                            : <></>
+                        }
                     </p>
 
                     {user.has_password !== 0 && (

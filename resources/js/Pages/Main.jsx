@@ -1,11 +1,40 @@
 import { Head } from '@inertiajs/react';
 import AuthLayout from '@/Layouts/Custom/AuthLayout';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 import SaveAnswer from '@/Components/Custom/SaveAnswer';
+import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
 
 export default function Dashboard({ auth }) {
 
+    const {
+        transcript,
+        listening,
+        resetTranscript,
+        browserSupportsSpeechRecognition
+    } = useSpeechRecognition();
+
+    useEffect(() => {
+        if (!browserSupportsSpeechRecognition) {
+            return alert("This browser does not support speech recognition.");
+        }
+    }, []);
+
+    const listen = () => {
+        if (listening) {
+            return
+        }
+
+        SpeechRecognition.startListening();
+    }
+
+    useEffect(() => {
+        setMessage(transcript);
+    }, [transcript])
+
+    /**
+     * speech synthesis
+     */
     const speak = (word) => {
         let utterance = new SpeechSynthesisUtterance(word);
 
@@ -106,10 +135,20 @@ export default function Dashboard({ auth }) {
                                     Loading...
                                 </button>
                             ) : (
-                                <button type="submit" className="text-white bg-lime-700 hover:bg-lime-800 focus:ring-4 focus:ring-lime-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 dark:bg-lime-600 dark:hover:bg-lime-700 dark:focus:ring-lime-800 inline-flex items-center">
-                                    Prompt
-                                    <i className="fa fa-paper-plane ml-2"></i>
-                                </button>
+                                <div className='flex gap-4'>
+                                    <button
+                                        type='button'
+                                        className={`${listening && "text-lime-500"} duration-100 px-3 py-0 rounded-full`}
+                                        title='Listen'
+                                        onClick={listen}
+                                    >
+                                        <i className="fa fa-microphone"></i>
+                                    </button>
+                                    <button type="submit" className="text-white bg-lime-700 hover:bg-lime-800 focus:ring-4 focus:ring-lime-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 dark:bg-lime-600 dark:hover:bg-lime-700 dark:focus:ring-lime-800 inline-flex items-center">
+                                        Prompt
+                                        <i className="fa fa-paper-plane ml-2"></i>
+                                    </button>
+                                </div>
                             )}
                         </div>
                     </div>
@@ -137,10 +176,10 @@ export default function Dashboard({ auth }) {
                         {!isLoading && (
                             <div className='p-2 mt-5 flex gap-4 justify-end'>
                                 <SaveAnswer situation={lastMessage} response={response} />
-                                <button onClick={copy}>
+                                <button onClick={copy} title='Copy'>
                                     <i className={`fas ${isCopied ? "fa-clipboard-check" : "fa-clipboard"}`}></i>
                                 </button>
-                                <button onClick={() => speak(response)}>
+                                <button onClick={() => speak(response)} title='Play voice'>
                                     <i className="fa fa-volume-high"></i>
                                 </button>
                             </div>
