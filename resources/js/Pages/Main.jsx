@@ -6,6 +6,21 @@ import SaveAnswer from '@/Components/Custom/SaveAnswer';
 
 export default function Dashboard({ auth }) {
 
+    const speak = (word) => {
+        let utterance = new SpeechSynthesisUtterance(word);
+
+        if (!window.speechSynthesis) {
+            alert("Speech Synthesis is unsupported!");
+            return;
+        }
+
+        if (window.speechSynthesis.speaking) {
+            return;
+        }
+
+        window.speechSynthesis.speak(utterance);
+    }
+
     const [isLoading, setIsLoading] = useState(false);
     const [message, setMessage] = useState("");
     const [response, setResponse] = useState(null);
@@ -125,9 +140,9 @@ export default function Dashboard({ auth }) {
                                 <button onClick={copy}>
                                     <i className={`fas ${isCopied ? "fa-clipboard-check" : "fa-clipboard"}`}></i>
                                 </button>
-                                {/* <button>
+                                <button onClick={() => speak(response)}>
                                     <i className="fa fa-volume-high"></i>
-                                </button> */}
+                                </button>
                             </div>
                         )}
                     </div>

@@ -26,6 +26,7 @@ const DeleteKnowledge = ({ knowledge }) => {
                         </svg>
                         <h3 className="mb-5 text-lg font-normal text-zinc-500 dark:text-zinc-400">Are you sure you want to delete "{knowledge.name}"?</h3>
                         <Link
+                            onClick={() => setConfirmDeletion(false)}
                             href={route('knowledge.destroy', knowledge.id)}
                             className="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center me-2"
                             method="delete"

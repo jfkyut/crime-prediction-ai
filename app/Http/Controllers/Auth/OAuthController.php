@@ -57,6 +57,9 @@ class OAuthController extends Controller
         } catch (ClientException $err) {
             return redirect('/')
                         ->with('error', 'Error: ' . $err->getCode() . '. ' . $err->getMessage());
+        } catch (\GuzzleHttp\Exception\ConnectException $err) {
+            return redirect('/')
+                        ->with('error', 'Error: ' . $err->getCode() . '. ' . $err->getMessage());
         }
 
         return redirect(RouteServiceProvider::HOME);
