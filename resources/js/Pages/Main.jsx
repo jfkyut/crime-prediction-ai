@@ -22,11 +22,12 @@ export default function Dashboard({ auth }) {
 
     const listen = () => {
         if (listening) {
+            SpeechRecognition.stopListening();
+            setContinueListening(false)
             return
         }
 
         setContinueListening(true);
-
         SpeechRecognition.startListening();
     }
 
