@@ -12,7 +12,7 @@ export default function Dashboard({ auth }) {
         listening,
         resetTranscript,
         browserSupportsSpeechRecognition
-    } = useSpeechRecognition();
+    } = useSpeechRecognition({ clearTranscriptOnListen: false });
 
     useEffect(() => {
         if (!browserSupportsSpeechRecognition) {
@@ -25,12 +25,22 @@ export default function Dashboard({ auth }) {
             return
         }
 
+        setContinueListening(true);
+
         SpeechRecognition.startListening();
     }
 
     useEffect(() => {
         setMessage(transcript);
     }, [transcript])
+
+    const [continueListening, setContinueListening] = useState(false);
+
+    useEffect(() => {
+        if (continueListening && !listening) {
+            SpeechRecognition.startListening();
+        }
+    }, [continueListening, listening])
 
     /**
      * speech synthesis
@@ -58,6 +68,9 @@ export default function Dashboard({ auth }) {
     const [lastMessage, setLastMessage] = useState("");
 
     const prompt = async (e) => {
+        SpeechRecognition.stopListening();
+        setContinueListening(false);
+        resetTranscript()
         e.preventDefault();
         setIsLoading(true);
         setIsSent(true);
