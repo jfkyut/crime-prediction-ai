@@ -12,8 +12,8 @@ const Index = ({ auth, users }) => {
             <Head title="Manage users" />
 
             <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-                <table className="w-full text-sm text-left rtl:text-right text-zinc-500 dark:text-zinc-400">
-                    <thead className="text-xs text-zinc-700 uppercase bg-zinc-50 dark:bg-zinc-700 dark:text-zinc-400">
+                <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                    <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         <tr>
                             <th scope="col" className="px-6 py-3">
                                 email
@@ -28,8 +28,8 @@ const Index = ({ auth, users }) => {
                     </thead>
                     <tbody>
                         {users.data.map((user, index) => (
-                            <tr className="bg-white border-b dark:bg-zinc-800 dark:border-zinc-700 hover:bg-zinc-50 dark:hover:bg-zinc-600">
-                                <th scope="row" className="px-6 py-4 font-medium text-zinc-900 whitespace-nowrap dark:text-white">
+                            <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                     {user.email}
                                 </th>
                                 <td className="px-6 py-4">
@@ -54,7 +54,7 @@ const Index = ({ auth, users }) => {
                     <ul class="inline-flex -space-x-px text-sm">
                         {users.links.map((link, index) => (
                             <Link key={index}>
-                                <a href={link.url} class="flex items-center justify-center px-3 h-8 leading-tight text-zinc-500 bg-white border border-zinc-300 hover:bg-zinc-100 hover:text-zinc-700 dark:bg-zinc-800 dark:border-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-700 dark:hover:text-white" dangerouslySetInnerHTML={{ __html: link.label }}></a>
+                                <a href={link.url} class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white" dangerouslySetInnerHTML={{ __html: link.label }}></a>
                             </Link>
                         ))}
                     </ul>

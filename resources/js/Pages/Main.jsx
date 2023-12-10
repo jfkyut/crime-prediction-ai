@@ -22,8 +22,9 @@ export default function Dashboard({ auth }) {
 
     const listen = () => {
         if (listening) {
-            SpeechRecognition.stopListening();
             setContinueListening(false)
+            SpeechRecognition.stopListening();
+
             return
         }
 
@@ -113,6 +114,8 @@ export default function Dashboard({ auth }) {
         }, 3000);
     }
 
+    const [showMicrophoneDropdown, setShowMicrophoneDropdown] = useState(false);
+
     return (
         <AuthLayout
             user={auth.user}
@@ -126,20 +129,20 @@ export default function Dashboard({ auth }) {
             <Head title="Bot" />
             <div>
                 <form onSubmit={prompt} className='w-full'>
-                    <div className="w-full mb-4 border border-zinc-200 rounded-lg bg-zinc-50 dark:bg-zinc-700 dark:border-zinc-600">
-                        <div className="px-4 py-2 bg-white rounded-t-lg dark:bg-zinc-800">
+                    <div className="w-full mb-4 border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600">
+                        <div className="px-4 py-2 bg-white rounded-t-lg dark:bg-gray-800">
                             <label for="message" className="sr-only">Your Situation</label>
                             <textarea
                                 id="message"
                                 rows="4"
-                                className="w-full px-0 text-sm text-zinc-900 bg-white border-0 dark:bg-zinc-800 focus:ring-0 dark:text-white dark:placeholder-zinc-400"
+                                className="w-full px-0 text-sm text-gray-900 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400"
                                 placeholder="Write a situation..."
                                 onChange={(e) => setMessage(e.target.value)}
                                 value={message}
                                 required
                             />
                         </div>
-                        <div className="flex items-center justify-end px-3 py-2 border-t dark:border-zinc-600">
+                        <div className="flex items-center justify-end px-3 py-2 border-t dark:border-gray-600">
                             {isLoading ? (
                                 <button disabled type="button" className="text-white bg-lime-700 hover:bg-lime-800 focus:ring-4 focus:ring-lime-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 dark:bg-lime-600 dark:hover:bg-lime-700 dark:focus:ring-lime-800 inline-flex items-center">
                                     <svg aria-hidden="true" role="status" className="inline w-4 h-4 me-3 text-white animate-spin" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -150,14 +153,48 @@ export default function Dashboard({ auth }) {
                                 </button>
                             ) : (
                                 <div className='flex gap-4'>
-                                    <button
-                                        type='button'
-                                        className={`${listening && "text-lime-500"} duration-100 px-3 py-0 rounded-full`}
-                                        title='Listen'
-                                        onClick={listen}
-                                    >
-                                        <i className="fa fa-microphone"></i>
+                                    <button title='Clear prompt' onClick={() => setMessage("")} type='button' className='outline-none'>
+                                        <i className="fa fa-trash-can"></i>
                                     </button>
+                                    <div className='relative'>
+                                        <button
+                                            type='button'
+                                            className={`${listening && "text-lime-500"} duration-100 px-3 py-2 rounded-full`}
+                                            onMouseOver={() => setShowMicrophoneDropdown(true)}
+                                            onMouseOut={() => setShowMicrophoneDropdown(false)}
+                                        >
+                                            <i className="fa fa-microphone"></i>
+                                        </button>
+                                        <div
+                                            id="dropdownDelay"
+                                            className={`${!showMicrophoneDropdown && "hidden opacity-0"} border dark:border-gray-600 z-10 absolute left-1/2 -translate-x-1/2 bg-white divide-y duration-200 divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700`}
+                                            onMouseOver={() => setShowMicrophoneDropdown(true)}
+                                            onMouseOut={() => setShowMicrophoneDropdown(false)}
+                                        >
+                                            <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDelayButton">
+                                                <li>
+                                                    <button
+                                                        type='button'
+                                                        onClick={listen}
+                                                        class="w-full block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                                                    >
+                                                        <i className="fa fa-power-off mr-2"></i>
+                                                        Turn {listening ? "off" : "on"}
+                                                    </button>
+                                                </li>
+                                                <li>
+                                                    <button
+                                                        type='button'
+                                                        className="w-full block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                                                        onClick={resetTranscript}
+                                                    >
+                                                        <i className="fa fa-trash-can mr-2"></i>
+                                                        Reset transcript
+                                                    </button>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
                                     <button type="submit" className="text-white bg-lime-700 hover:bg-lime-800 focus:ring-4 focus:ring-lime-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 dark:bg-lime-600 dark:hover:bg-lime-700 dark:focus:ring-lime-800 inline-flex items-center">
                                         Prompt
                                         <i className="fa fa-paper-plane ml-2"></i>
@@ -168,7 +205,7 @@ export default function Dashboard({ auth }) {
                     </div>
                 </form>
                 {isSent ? (
-                    <div className='block p-6 bg-white border border-zinc-200 rounded-lg shadow hover:bg-zinc-100 dark:bg-zinc-800 dark:border-zinc-700 dark:hover:bg-zinc-700'>
+                    <div className='block p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700'>
                         {isLoading ? (
                             <div className='flex justify-center items-center p-10'>
                                 <div role="status">
@@ -202,7 +239,7 @@ export default function Dashboard({ auth }) {
                 ) : (
                     <div className='grid md:grid-cols-2 lg:grid-cols-3 gap-4 text-xs mt-5'>
                         {situations.map((situation, index) => (
-                            <div key={index} onClick={() => setMessage(situation)} className='bg-zinc-100 dark:bg-zinc-800 p-4 rounded-lg hover:bg-zinc-200 dark:hover:bg-zinc-700 hover:cursor-pointer'>
+                            <div key={index} onClick={() => setMessage(situation)} className='bg-gray-100 dark:bg-gray-800 p-4 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 hover:cursor-pointer'>
                                 <p>{situation}</p>
                             </div>
                         ))}

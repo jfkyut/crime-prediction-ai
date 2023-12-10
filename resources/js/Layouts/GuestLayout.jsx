@@ -16,14 +16,14 @@ export default function Guest({ children }) {
     }, [darkMode]);
 
     return (
-        <div className="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-zinc-100 dark:bg-zinc-900">
+        <div className="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100 dark:bg-gray-900">
             {/* <div>
                 <Link href="/">
-                    <ApplicationLogo className="w-20 h-20 fill-current text-zinc-500" />
+                    <ApplicationLogo className="w-20 h-20 fill-current text-gray-500" />
                 </Link>
             </div> */}
 
-            <div className="w-full max-w-sm p-4 md:bg-white md:border md:border-zinc-200 rounded-lg md:shadow sm:p-6 md:p-8 md:dark:bg-zinc-800 md:dark:border-zinc-700 mt-5">
+            <div className="w-full max-w-sm p-4 md:bg-white md:border md:border-gray-200 rounded-lg md:shadow sm:p-6 md:p-8 md:dark:bg-gray-800 md:dark:border-gray-700 mt-5">
                 <h5 class="text-xl font-medium text-gray-900 dark:text-white mb-6 uppercase text-center">
                     {route().current().replace('.', ' ')}
                 </h5>

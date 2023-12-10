@@ -58,6 +58,7 @@ export default function UpdatePasswordForm({ className = '' }) {
                         type="password"
                         className="mt-1 block w-full"
                         autoComplete="current-password"
+                        placeholder="••••••••"
                     />
 
                     <InputError message={errors.current_password} className="mt-2" />
@@ -74,6 +75,7 @@ export default function UpdatePasswordForm({ className = '' }) {
                         type="password"
                         className="mt-1 block w-full"
                         autoComplete="new-password"
+                        placeholder="••••••••"
                     />
 
                     <InputError message={errors.password} className="mt-2" />
@@ -89,6 +91,7 @@ export default function UpdatePasswordForm({ className = '' }) {
                         type="password"
                         className="mt-1 block w-full"
                         autoComplete="new-password"
+                        placeholder="••••••••"
                     />
 
                     <InputError message={errors.password_confirmation} className="mt-2" />
