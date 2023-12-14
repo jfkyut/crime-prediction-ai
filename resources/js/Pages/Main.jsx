@@ -237,13 +237,14 @@ export default function Dashboard({ auth }) {
                         )}
                     </div>
                 ) : (
-                    <div className='grid md:grid-cols-2 lg:grid-cols-3 gap-4 text-xs mt-5'>
-                        {situations.map((situation, index) => (
-                            <div key={index} onClick={() => setMessage(situation)} className='bg-gray-100 dark:bg-gray-800 p-4 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 hover:cursor-pointer'>
-                                <p>{situation}</p>
-                            </div>
-                        ))}
-                    </div>
+                    // <div className='grid md:grid-cols-2 lg:grid-cols-3 gap-4 text-xs mt-5'>
+                    //     {situations.map((situation, index) => (
+                    //         <div key={index} onClick={() => setMessage(situation)} className='bg-gray-100 dark:bg-gray-800 p-4 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 hover:cursor-pointer'>
+                    //             <p>{situation}</p>
+                    //         </div>
+                    //     ))}
+                    // </div>
+                    <></>
                 )}
 
             </div>

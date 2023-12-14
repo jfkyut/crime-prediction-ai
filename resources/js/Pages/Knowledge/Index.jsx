@@ -49,7 +49,7 @@ const Index = ({ auth, knowledgeList }) => {
                 <>
                     <div className="my-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
                         {knowledgeList.data.map((knowledge, index) => (
-                            <div className="border dark:border-zinc-700 dark:bg-zinc-800 p-4 h-12 max-w-lg text-xs rounded flex justify-between" key={index}>
+                            <div className="border dark:border-gray-700 dark:bg-gray-800 p-4 h-12 max-w-lg text-xs rounded flex justify-between" key={index}>
                                 <span className="truncate">
                                     {knowledge.name}
                                 </span>
@@ -65,7 +65,7 @@ const Index = ({ auth, knowledgeList }) => {
                             <ul class="inline-flex -space-x-px text-sm">
                                 {knowledgeList.links.map((link, index) => (
                                     <li key={index}>
-                                        <Link href={link.url} class="flex items-center justify-center px-3 h-8 leading-tight text-zinc-500 bg-white border border-zinc-300 hover:bg-zinc-100 hover:text-zinc-700 dark:bg-zinc-800 dark:border-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-700 dark:hover:text-white" dangerouslySetInnerHTML={{ __html: link.label }}></Link>
+                                        <Link href={link.url} class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white" dangerouslySetInnerHTML={{ __html: link.label }}></Link>
                                     </li>
                                 ))}
                             </ul>
