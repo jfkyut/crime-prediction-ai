@@ -5,7 +5,7 @@ const AuthLayout = ({ user, children, header }) => {
         <>
             <SideBar user={user} />
             <div className="sm:ml-64 relative dark:bg-gray-900 min-h-screen text-gray-600 dark:text-gray-300 px-[5%] py-24">
-                <div className="bg-gray-800 h-14 fixed top-0 left-0 border-b border-gray-600 z-20 right-0 sm:hidden">
+                <div className="bg-white dark:bg-gray-800 h-14 fixed top-0 left-0 border-b border-gray-600 z-20 right-0 sm:hidden">
 
                 </div>
 
