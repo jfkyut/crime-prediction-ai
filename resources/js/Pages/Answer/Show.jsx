@@ -20,7 +20,7 @@ const Show = ({ auth, answer }) => {
                                 Category
                             </th>
                             <th scope="col" className="px-6 py-3 w-full">
-                                Detail
+                                Content
                             </th>
                         </tr>
                     </thead>
