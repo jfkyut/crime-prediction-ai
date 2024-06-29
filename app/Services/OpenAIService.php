@@ -27,7 +27,7 @@ class OpenAIService
         if (isset($response->json()['candidates'][0]['content'])) {
             return $response->json()['candidates'][0]['content']['parts'][0]['text']; 
         } else {
-            return 'Too sensitive.';
+            return 'Too sensitive. Please try again.';
         }
     }
 }
