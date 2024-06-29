@@ -21,14 +21,14 @@ use Inertia\Inertia;
 
 
 
-Route::middleware('guest')->group(function () {
-    Route::get('/', function () {
-        return Inertia::render('Guest/Index');
-    });
-});
+// Route::middleware('guest')->group(function () {
+//     Route::get('/', function () {
+//         return Inertia::render('Guest/Index');
+//     });
+// });
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/crime-bot', [CrimeController::class, 'create'])->name('dashboard');
+    Route::get('/', [CrimeController::class, 'create'])->name('dashboard');
     Route::post('/crime-bot', [CrimeController::class, 'store'])->name('generator.store');
 
     // answers
