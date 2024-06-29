@@ -32,22 +32,8 @@ class CrimeController extends Controller
 
         $base = implode("\n\n\n\n", $collection);
 
-        $system = [
-            [
-                "role" => "system",
-                "content" => "You are a crime prediction assistant. Your purpose is to analyze given situations and generate potential crime including its article code based on a database of legal cases and information. User will describe a situation, and you will respond with a potential crime related to that scenario.\n\n\n\nKnowledge base: " . $base
-            ]
-        ];
+        $initialPrompt = "You are a crime prediction assistant. Your purpose is to analyze given situations and generate potential crime including its article code based on a knowledge base of legal cases and information. User will describe a situation, and you will respond with a potential crime related to that scenario with explanation, don't just invent code, if the code does not exist in your knowledge base, just say it is not available in your current knowledge base. This is Philippine base, not US.\n\n\n\nKnowledge base: " . $base;
 
-        $user = [
-            [
-                "role" => "user",
-                "content" => $request->input('prompt')
-            ]
-        ];
-
-        $messages = array_merge($system, $user);
-
-        return response($this->openAIService->prompt($messages));
+        return response($this->openAIService->prompt($initialPrompt, $request->input('prompt')));
     }
 }

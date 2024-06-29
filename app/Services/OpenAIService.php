@@ -6,20 +6,28 @@ use Illuminate\Support\Facades\Http;
 
 class OpenAIService
 {
-    public function prompt($message)
+    public function prompt($initialPrompt, $message)
     {
         $response = Http::withHeaders([
+            'x-goog-api-key' => env('GEMINI_KEY'),
             'Content-Type' => 'application/json',
-            'Authorization' => 'Bearer ' . env('OPENAI_KEY')
-        ])->post('https://api.openai.com/v1/chat/completions', [
-            "model" => "gpt-3.5-turbo-1106",
-            "messages" => $message,
+        ])->post('https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent', [
+            'contents' => [
+                [
+                    'role' => 'user',
+                    'parts' => [
+                        [
+                            'text' => $initialPrompt . 'user message: ' . $message
+                        ]
+                    ]
+                ]
+            ]
         ]);
 
-        if ($response->ok()) {
-            return $response->json()['choices'][0]['message']['content'];
+        if (isset($response->json()['candidates'][0]['content'])) {
+            return $response->json()['candidates'][0]['content']['parts'][0]['text']; 
         } else {
-            return abort(500, "Something went wrong!");
+            return 'Too sensitive.';
         }
     }
 }
