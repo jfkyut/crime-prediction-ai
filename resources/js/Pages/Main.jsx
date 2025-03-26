@@ -121,7 +121,7 @@ export default function Dashboard({ auth }) {
             user={auth.user}
             header={
                 <>
-                    <h1 className="text-2xl font-bold uppercase">Crime prediction bot</h1>
+                    <h1 className="text-2xl font-bold uppercase">Virtual Assistance</h1>
                     <p className="leading-relaxed text-base">Describe your situation and the Bot will try to identify which crime could be apply in a given situation.</p>
                 </>
             }

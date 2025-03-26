@@ -11,7 +11,7 @@ class OpenAIService
         $response = Http::withHeaders([
             'x-goog-api-key' => env('GEMINI_KEY'),
             'Content-Type' => 'application/json',
-        ])->post('https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent', [
+        ])->post('https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent', [
             'contents' => [
                 [
                     'role' => 'user',
