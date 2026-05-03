@@ -11,7 +11,7 @@ class OpenAIService
         $response = Http::withHeaders([
             'x-goog-api-key' => env('GEMINI_KEY'),
             'Content-Type' => 'application/json',
-        ])->post('https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent', [
+        ])->post('https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-pro-preview:generateContent', [
             'contents' => [
                 [
                     'role' => 'user',
@@ -27,7 +27,8 @@ class OpenAIService
         if (isset($response->json()['candidates'][0]['content'])) {
             return $response->json()['candidates'][0]['content']['parts'][0]['text']; 
         } else {
-            return 'Too sensitive. Please try again.';
+            
+            return 'Something went wrong.';
         }
     }
 }

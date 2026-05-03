@@ -116,6 +116,67 @@ export default function Dashboard({ auth }) {
 
     const [showMicrophoneDropdown, setShowMicrophoneDropdown] = useState(false);
 
+    /**
+     * Format the API response with proper styling
+     */
+    const formatResponse = (text) => {
+        if (!text) return null;
+
+        return text.split('\n').map((line, index) => {
+            // Handle numbered list items with bold titles (e.g., "1. **Title:** description")
+            const numberedMatch = line.match(/^(\d+)\.\s+\*\*([^*]+)\*\*:\s*(.+)$/);
+            if (numberedMatch) {
+                return (
+                    <div key={index} className="mb-4">
+                        <div className="flex gap-3">
+                            <span className="font-bold text-lime-700 dark:text-lime-500 min-w-fit">{numberedMatch[1]}.</span>
+                            <div>
+                                <span className="font-bold text-gray-900 dark:text-white">{numberedMatch[2]}:</span>
+                                <span className="text-gray-700 dark:text-gray-300"> {numberedMatch[3]}</span>
+                            </div>
+                        </div>
+                    </div>
+                );
+            }
+
+            // Handle section headers with asterisks (e.g., "**Header:**")
+            const headerMatch = line.match(/^\*\*([^*]+)\*\*:?(.*)$/);
+            if (headerMatch) {
+                return (
+                    <div key={index} className="mt-6 mb-3">
+                        <h3 className="text-lg font-bold text-gray-900 dark:text-white border-l-4 border-lime-700 dark:border-lime-500 pl-3">
+                            {headerMatch[1]}
+                        </h3>
+                        {headerMatch[2].trim() && <p className="text-gray-700 dark:text-gray-300 mt-2">{headerMatch[2].trim()}</p>}
+                    </div>
+                );
+            }
+
+            // Handle bullet points (e.g., "* Item")
+            const bulletMatch = line.match(/^\*\s+(.+)$/);
+            if (bulletMatch) {
+                return (
+                    <div key={index} className="flex gap-3 mb-2">
+                        <span className="text-lime-700 dark:text-lime-500 font-bold">•</span>
+                        <p className="text-gray-700 dark:text-gray-300">{bulletMatch[1]}</p>
+                    </div>
+                );
+            }
+
+            // Handle empty lines
+            if (line.trim() === '') {
+                return <div key={index} className="h-2" />;
+            }
+
+            // Regular paragraphs
+            return (
+                <p key={index} className="text-gray-700 dark:text-gray-300 mb-3 leading-relaxed">
+                    {line}
+                </p>
+            );
+        });
+    };
+
     return (
         <AuthLayout
             user={auth.user}
@@ -217,12 +278,12 @@ export default function Dashboard({ auth }) {
                                 </div>
                             </div>
                         ) : (
-                            <p className='whitespace-pre-wrap'>{
-                                !error
-                                    ? response
+                            <div className='text-sm'>
+                                {!error
+                                    ? formatResponse(response)
                                     : <span className='text-red-600 dark:text-red-300'>Something went wrong! Please try again.</span>
                                 }
-                            </p>
+                            </div>
                         )}
                         {!isLoading && (
                             <div className='p-2 mt-5 flex gap-4 justify-end'>
