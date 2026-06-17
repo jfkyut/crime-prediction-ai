@@ -24,6 +24,8 @@ class OpenAIService
             ]
         ]);
 
+        // return $response->json();
+
         if (isset($response->json()['candidates'][0]['content'])) {
             return $response->json()['candidates'][0]['content']['parts'][0]['text']; 
         } else {
