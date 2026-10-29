@@ -42,4 +42,10 @@ return [
         'client_secret' => env('FACEBOOK_CLIENT_SECRET'),
         'redirect' => '/oauth/facebook/redirect',
     ],
+
+    'llm' => [
+        'invoke_url' => env('LLM_INVOKE_URL'),
+        'model' => env('LLM_MODEL'),
+        'api_key' => env('LLM_API_KEY'),
+    ],
 ];
